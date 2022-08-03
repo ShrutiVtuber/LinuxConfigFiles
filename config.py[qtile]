@@ -30,6 +30,7 @@ from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
 mod = "mod4"
+alt = "mod1"
 terminal = guess_terminal()
 keys = [
     # A list of available commands that can be bound to keys can be found
@@ -69,7 +70,7 @@ keys = [
         lazy.layout.toggle_split(),
         desc="Toggle between split and unsplit sides of stack",
     ),
-    Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
+    Key([mod], "Return", lazy.spawn("xfce4-terminal"), desc="Launch terminal"),
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
@@ -78,13 +79,18 @@ keys = [
     Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
     # Keybind for rofi run
     Key([mod, "shift"], "Return", lazy.spawn("rofi -show drun"), desc="Launch Rofi"),
+    Key([alt], "Shift_L", lazy.widget["keyboardlayout"].next_keyboard(), desc="Next keyboard layout."),
 ]
 
 #groups = [Group(i) for i in "123456789"]
 groups = [
-        Group("1", label="col"),
+        Group("1", label="dev"),
         Group("2", label="www"),
-        Group("3", label="win")]
+        Group("3", label="win"),
+        Group("4", label="dis"),
+        Group("5", label="vtb"),
+        Group("6", label="obs")
+        ]
 for i in groups:
     keys.extend(
         [
@@ -109,26 +115,34 @@ for i in groups:
         ]
     )
 
+#def init_layout_theme():
+#    return {"border_width":2,
+#            "margin": 20,
+#            "border_focus": "AD69AF",
+#            "border_normal": "1D2330"
+#            }
+
 layouts = [
-    layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
+    layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4, margin=10),
     layout.Max(),
+    #layout.Floating(),
     # Try more layouts by unleashing below layouts.
-    # layout.Stack(num_stacks=2),
-    # layout.Bsp(),
-    # layout.Matrix(),
-    # layout.MonadTall(),
-    # layout.MonadWide(),
-    # layout.RatioTile(),
-    # layout.Tile(),
-    # layout.TreeTab(),
-    # layout.VerticalTile(),
-    # layout.Zoomy(),
+    #layout.Stack(num_stacks=2),
+    #layout.Bsp(),
+    #layout.Matrix(),
+    #layout.MonadTall(),
+    #layout.MonadWide(),
+    #layout.RatioTile(),
+    #layout.Tile(),
+    #layout.TreeTab(),
+    #layout.VerticalTile(),
+    #layout.Zoomy(),
 ]
 
 widget_defaults = dict(
     font="sans",
     fontsize=32,
-    padding=3,
+    padding=3
 )
 extension_defaults = widget_defaults.copy()
 screens = [
@@ -151,7 +165,7 @@ screens = [
                     active='FFFFFF',
                     # Colour of inactive groups
                     inactive='FFFFFF'
-                    ),
+                ),
                 widget.Prompt(),
                 #widget.WindowName(),
                 widget.Chord(
@@ -164,24 +178,21 @@ screens = [
                 #widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
                 widget.Spacer(),
                 widget.Systray(),
-                #widget.Volume(
-                #    cardid = 0,
-                #    get_volume_command = "pamixer --get-volume-human",
-                #    check_mute_command = "pamixer --get-mute",
-                #    check_mute_string = "true",
-                #    volume_up_command = "pamixer -i 5",
-                #    volume_down_command="pamixer -d 5",
-                #    mute_command="pamixer -t",
-                #    ),
-                #widget.KeyboardLayout(configured_keyboards['us']),
-                #widget.Net(interface='wlan0', format="{interface}: U {up} D {down}"),
-                widget.Clock(format="%a %d %B %Y %H:%M",padding=25),
-                widget.BatteryIcon(),
-                #widget.QuickExit(),
+                widget.KeyboardLayout(configured_keyboards=['us', 'gr']),
+                widget.TextBox("|"),
+                widget.Net(interface='wlan0', format="U {up} D {down}", prefix="M"),
+                widget.TextBox("|"),
+                widget.Clock(format="%a %d %B %Y [ %H:%M ]",padding=5),
+                widget.TextBox("|"),
+                widget.Battery(format="{percent:1.0%}"),
+                widget.TextBox(" ", padding=5),
+                #widget.QuickExit()
             ],
             72,
-            # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
-            # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
+            background='#453f52',
+            opacity=.9,
+            #border_width=[0, 0, 2, 0],  # Draw top and bottom borders
+            #border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
         ),
     ),
 ]
@@ -229,4 +240,5 @@ wl_input_rules = None
 #
 # We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
 # java that happens to be on java's whitelist.
-wmname = "LG3D"
+#wmname = "LG3D"
+wmname = "SDDM"
