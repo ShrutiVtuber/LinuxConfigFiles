@@ -64,7 +64,7 @@ keys = [
     # Unsplit = 1 window displayed, like Max layout, but still with
     # multiple stack panes
     Key(
-        [mod, "shift"],
+        [mod, "control"],
         "Return",
         lazy.layout.toggle_split(),
         desc="Toggle between split and unsplit sides of stack",
@@ -76,10 +76,15 @@ keys = [
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
+    # Keybind for rofi run
+    Key([mod, "shift"], "Return", lazy.spawn("rofi -show drun"), desc="Launch Rofi"),
 ]
 
-groups = [Group(i) for i in "123456789"]
-
+#groups = [Group(i) for i in "123456789"]
+groups = [
+        Group("1", label="col"),
+        Group("2", label="www"),
+        Group("3", label="win")]
 for i in groups:
     keys.extend(
         [
@@ -131,7 +136,22 @@ screens = [
         top=bar.Bar(
             [
                 widget.CurrentLayout(padding=25),
-                widget.GroupBox(),
+                widget.GroupBox(
+                    # How the group is highlighted
+                    highlight_method='block',
+                    # If the highlight is rounded
+                    rounded=False,
+                    # Background colour of the highlight
+                    this_current_screen_border='FFFFFF',
+                    # I believe this is the same as ^ ?
+                    this_screen_border='FFFFFF',
+                    # Colour of the highlighted group text
+                    block_highlight_text_color='000000',
+                    # Colour of active groups (not highlighted)
+                    active='FFFFFF',
+                    # Colour of inactive groups
+                    inactive='FFFFFF'
+                    ),
                 widget.Prompt(),
                 #widget.WindowName(),
                 widget.Chord(
@@ -155,7 +175,8 @@ screens = [
                 #    ),
                 #widget.KeyboardLayout(configured_keyboards['us']),
                 #widget.Net(interface='wlan0', format="{interface}: U {up} D {down}"),
-                widget.Clock(format="%a %d %B %Y %I:%M %p",padding=25),
+                widget.Clock(format="%a %d %B %Y %H:%M",padding=25),
+                widget.BatteryIcon(),
                 #widget.QuickExit(),
             ],
             72,
