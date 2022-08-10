@@ -1,0 +1,11 @@
+/usr/bin/pipewire &
+/usr/bin/pipewire-pulse &
+/usr/bin/pipewire-media-session &
+/usr/bin/picom &
+# protonvpn-cli fix
+gnome-keyring-daemon --start &
+nm-applet &
+/usr/bin/optimus-manager-qt &
+# proton mail
+#protonmail-bridge --no-window &> /dev/null &
+iw wlan0 set power_save off

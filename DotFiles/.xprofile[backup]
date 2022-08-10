@@ -1,0 +1,4 @@
+setxkbmap us
+nitrogen --restore
+picom -f &
+echo "debarepinchvspinVscout]oven-stiff" | protonmail-bridge --no-window &> /dev/null &
