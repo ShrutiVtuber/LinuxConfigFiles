@@ -86,10 +86,10 @@ keys = [
 groups = [
         Group("1", label="dev"),
         Group("2", label="www"),
-        Group("3", label="win"),
+        Group("3", label="com"),
         Group("4", label="dis"),
         Group("5", label="vtb"),
-        Group("6", label="obs")
+        Group("6", label="xmr")
         ]
 for i in groups:
     keys.extend(
@@ -177,14 +177,17 @@ screens = [
                 #widget.TextBox("default config", name="default"),
                 #widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
                 widget.Spacer(),
-                widget.Systray(),
+                widget.Systray(icon_size=40),
+                widget.TextBox("|"),
                 widget.KeyboardLayout(configured_keyboards=['us', 'gr']),
+                #widget.CryptoTicker(crypto="xmr", currency="USD"),
+                #widget.CPUGraph(),
                 widget.TextBox("|"),
                 widget.Net(interface='wlan0', format="U {up} D {down}", prefix="M"),
                 widget.TextBox("|"),
                 widget.Clock(format="%a %d %B %Y [ %H:%M ]",padding=5),
                 widget.TextBox("|"),
-                widget.Battery(format="{percent:1.0%}"),
+                widget.Battery(charge_char='[ Charging ]', discharge_char='[ Discharge ]', unknown_char='[ Charging ]', format="{percent:1.0%} {char}"),
                 widget.TextBox(" ", padding=5),
                 #widget.QuickExit()
             ],
