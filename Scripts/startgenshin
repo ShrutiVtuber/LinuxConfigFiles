@@ -1,0 +1,5 @@
+#!/bin/bash
+# This script starts genshin impact with Wine using 
+# prime-run to ensure the graphics card is used
+cd "/home/shruti/Documents/Genshin Impact/drive_c/Program Files/Genshin Impact/Genshin Impact game"
+prime-run wine cmd /c launcher.bat

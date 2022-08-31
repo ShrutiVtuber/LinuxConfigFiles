@@ -1,0 +1,14 @@
+#!/bin/bash
+# Set the variables
+CONNECTION=${1}
+PASSWORD=${2}
+# Attempt to connect via nmcli
+nmcli --ask device wifi connect ${CONNECTION} password ${PASSWORD} 2> /dev/null
+# Test for a valid connection
+if [[ ${?} ]]
+then
+  echo "Connected successfully to ${CONNECTION}"
+else
+  echo "Errors with the connection" >&2 
+  exit 1
+fi
